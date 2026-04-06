@@ -28,7 +28,7 @@ export default function App() {
 
 
       <Link href="./subscriptions/spotify">Spotify Subscription</Link>
-      <Link href={{ pathname: "./subscriptions/[id]", params: { id: "cluade" } }}>Clude Max Subscription</Link>
+      <Link href={{ pathname: "./subscriptions/[id]", params: { id: "claude-pro" } }}>Clude Max Subscription</Link>
     </SafeAreaView>
     // </View>
   );
