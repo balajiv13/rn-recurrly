@@ -19,7 +19,7 @@ declare global {
         plan?: string;
         category?: string;
         paymentMethod?: string;
-        status?: string;
+        status?: "active" | "paused" | "cancelled";
         startDate?: string;
         price: number;
         currency?: string;
@@ -45,7 +45,7 @@ declare global {
     }
 
     interface UpcomingSubscriptionCardProps
-        extends Omit<UpcomingSubscription, "id"> {}
+        extends Omit<UpcomingSubscription, "id"> { }
 
     interface ListHeadingProps {
         title: string;
@@ -53,3 +53,4 @@ declare global {
 }
 
 export { };
+
