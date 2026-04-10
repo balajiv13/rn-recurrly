@@ -123,7 +123,7 @@ export const formatCurrency = (
         const currency = getCurrency(currencyCode);
 
         if (!currency) {
-            console.warn(`Currency code ${currencyCode} not found`);
+            console.log(`Currency code ${currencyCode} not found`);
             return `${currencyCode} ${amount.toFixed(2)}`;
         }
 
