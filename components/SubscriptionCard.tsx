@@ -4,7 +4,10 @@ import clsx from 'clsx'
 import React from 'react'
 import { Image, Pressable, Text, View } from 'react-native'
 
-const SubscriptionCard = ({ name, currency, billing, icon, price, color, category, plan, renewalDate, onPress, expanded, paymentMethod, startDate , status}: SubscriptionCardProps) => {
+const SubscriptionCard = ({ name, currency, billing, icon, price, color, category, plan, renewalDate, onPress, expanded, paymentMethod, startDate, status }: SubscriptionCardProps) => {
+
+    const notProvided: string = "Not provided";
+
     return (
         <Pressable onPress={onPress} className={clsx('sub-card', expanded ? 'sub-card-expanded' : 'bg-card')} style={!expanded && color ? { backgroundColor: color } : undefined}>
             <View className='sub-head'>
@@ -29,31 +32,31 @@ const SubscriptionCard = ({ name, currency, billing, icon, price, color, categor
                         <View className="sub-row">
                             <View className="sub-row-copy">
                                 <Text className="sub-label">Payments:</Text>
-                                <Text className="sub-value" numberOfLines={1} ellipsizeMode='tail'> {paymentMethod?.trim()} </Text>
+                                <Text className="sub-value" numberOfLines={1} ellipsizeMode='tail'> {paymentMethod?.trim() || notProvided} </Text>
                             </View>
                         </View>
                         <View className="sub-row">
                             <View className="sub-row-copy">
                                 <Text className="sub-label">Category:</Text>
-                                <Text className="sub-value" numberOfLines={1} ellipsizeMode='tail'> {category?.trim() || plan?.trim() || ''} </Text>
+                                <Text className="sub-value" numberOfLines={1} ellipsizeMode='tail'> {category?.trim() || plan?.trim() || notProvided} </Text>
                             </View>
                         </View>
                         <View className="sub-row">
                             <View className="sub-row-copy">
                                 <Text className="sub-label">Started:</Text>
-                                <Text className="sub-value" numberOfLines={1} ellipsizeMode='tail'> {startDate ? formateSubscriptionDateTime(startDate) : ''} </Text>
+                                <Text className="sub-value" numberOfLines={1} ellipsizeMode='tail'> {startDate ? formateSubscriptionDateTime(startDate) : notProvided} </Text>
                             </View>
                         </View>
                         <View className="sub-row">
                             <View className="sub-row-copy">
                                 <Text className="sub-label">Renewal Date:</Text>
-                                <Text className="sub-value" numberOfLines={1} ellipsizeMode='tail'> {renewalDate ? formateSubscriptionDateTime(renewalDate) : 'NA'} </Text>
+                                <Text className="sub-value" numberOfLines={1} ellipsizeMode='tail'> {renewalDate ? formateSubscriptionDateTime(renewalDate) : notProvided} </Text>
                             </View>
                         </View>
                         <View className="sub-row">
                             <View className="sub-row-copy">
                                 <Text className="sub-label">Status:</Text>
-                                <Text className="sub-value" numberOfLines={1} ellipsizeMode='tail'> {status ? formateStatusLabel(status) : ''} </Text>
+                                <Text className="sub-value" numberOfLines={1} ellipsizeMode='tail'> {status ? formateStatusLabel(status) : notProvided} </Text>
                             </View>
                         </View>
                     </View>
