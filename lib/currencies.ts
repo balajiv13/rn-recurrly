@@ -106,7 +106,8 @@ export const getCurrencyCodes = (): string[] => {
 
 // Get currencies by region
 export const getCurrenciesByRegion = (region: string): Currency[] => {
-    return CURRENCIES.filter(c => c.region === region);
+    const normalizedRegion = region.trim().toLowerCase();
+    return CURRENCIES.filter(c => c.region.toLowerCase() === normalizedRegion);
 };
 
 // Format currency amount with proper locale and formatting
