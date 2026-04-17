@@ -137,16 +137,6 @@ export default function SignInScreen() {
                 Password
               </Text>
               <View className="flex-row items-center border border-border rounded-lg bg-card px-4 py-3">
-                {/* <FormInput
-                className="w-full"
-                  label=""
-                  placeholder="Enter your password"
-                  value={password}
-                  onChangeText={handlePasswordChange}
-                  secureTextEntry={!showPassword}
-                  editable={!isLoading}
-                  autoCapitalize="none"
-                /> */}
                 <TextInput
                   className="flex-1 text-base text-primary"
                   placeholder="Enter your password"

@@ -56,24 +56,28 @@ export const validatePasswordConfirm = (
 /**
  * Get friendly error message from Clerk error
  */
-export const getClerkErrorMessage = (error: any): string => {
+type ClerkLikeError = {
+  errors?: Array<{ message?: string }>;
+  message?: string;
+};
+
+export const getClerkErrorMessage = (error: unknown): string => {
   if (!error) return 'An unexpected error occurred';
 
   // Handle Clerk specific errors
-  if (error.errors && error.errors.length > 0) {
-    const firstError = error.errors[0];
-    if (firstError.message) {
-      return firstError.message;
-    }
+  if (typeof error === 'string') {
+    return error;
   }
 
   // Handle standard error messages
-  if (error.message) {
-    return error.message;
+  const maybeError = error as ClerkLikeError;
+  if (Array.isArray(maybeError.errors) && maybeError.errors.length > 0) {
+    const firstError = maybeError.errors[0];
+    if (firstError?.message) return firstError.message;
   }
 
-  if (typeof error === 'string') {
-    return error;
+  if (typeof maybeError.message === 'string' && maybeError.message.length > 0) {
+    return maybeError.message;
   }
 
   return 'An unexpected error occurred';

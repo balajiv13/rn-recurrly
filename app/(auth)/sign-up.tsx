@@ -8,7 +8,7 @@ import { useAuth, useSignUp } from "@clerk/expo";
 import { type Href, useRouter } from "expo-router";
 import { styled } from "nativewind";
 import React, { useState } from "react";
-import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from "react-native";
+import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 type SignUpStep = "form" | "verification";
@@ -323,8 +323,8 @@ export default function SignUpScreen() {
                 Password
               </Text>
               <View className="flex-row items-center border border-border rounded-lg bg-card px-4 py-3">
-                <FormInput
-                  label=""
+                <TextInput
+                  className="flex-1 text-base text-primary"
                   placeholder="Create a password"
                   value={password}
                   onChangeText={handlePasswordChange}
@@ -365,8 +365,8 @@ export default function SignUpScreen() {
                 Confirm Password
               </Text>
               <View className="flex-row items-center border border-border rounded-lg bg-card px-4 py-3">
-                <FormInput
-                  label=""
+                <TextInput
+                  className="flex-1 text-base text-primary"
                   placeholder="Confirm your password"
                   value={confirmPassword}
                   onChangeText={handleConfirmPasswordChange}
