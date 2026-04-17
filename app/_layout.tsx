@@ -33,9 +33,6 @@ export default function RootLayout() {
     return (
       <View className="flex-1 bg-background items-center justify-center">
         <Text className="text-lg font-sans-bold text-primary mb-3">Loading...</Text>
-        <Text className="text-sm text-muted-foreground text-center">
-          {publishableKey + publishableKey ? "" : "(Missing Publishable Key)"}
-        </Text>
         <ActivityIndicator size="large" color="#ea7a53" />
       </View>
     );

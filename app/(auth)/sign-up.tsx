@@ -64,7 +64,7 @@ export default function SignUpScreen() {
     setPassword(text);
     setPasswordError("");
     setGeneralError("");
-    
+
     // Real-time password validation
     if (text.length > 0) {
       const validation = validatePassword(text);
@@ -148,7 +148,7 @@ export default function SignUpScreen() {
       setStep("verification");
     } catch (error: any) {
       const errorMessage = error?.errors?.[0]?.message || error?.message || "Failed to create account";
-      
+
       if (errorMessage.includes("email") || errorMessage.includes("identifier")) {
         setEmailError(errorMessage);
       } else if (errorMessage.includes("password")) {
@@ -248,6 +248,8 @@ export default function SignUpScreen() {
                     setGeneralError("Authentication service is unavailable");
                     return;
                   }
+                  setGeneralError("");
+                  setCodeError("");
                   setIsLoading(true);
                   signUpHook.prepareEmailAddressVerification({ strategy: "email_code" }).then(() => {
                     setIsLoading(false);
