@@ -5,6 +5,7 @@ import { HOME_BALANCE, HOME_SUBSCRIPTIONS, HOME_USER, UPCOMING_SUBSCRIPTIONS } f
 import { icons } from '@/constants/icons';
 import '@/global.css';
 import { formatCurrency } from '@/lib/currencies';
+import { useUser } from '@clerk/expo';
 import dayjs from 'dayjs';
 import { styled } from 'nativewind';
 import { useState } from 'react';
@@ -14,29 +15,37 @@ import { SafeAreaView as RNSafeAreaView } from 'react-native-safe-area-context';
 const SafeAreaView = styled(RNSafeAreaView);
 
 /**
- * Render the app's root screen containing a welcome heading and navigation links.
+ * Render the app's home screen containing welcome greeting with authenticated user info,
+ * balance overview, upcoming subscriptions, and all active subscriptions.
  *
- * The returned element is a SafeAreaView that provides the main app container and
- * includes a title and multiple Link components for navigating to onboarding,
- * authentication, and subscription screens.
+ * The screen is protected by auth state and only rendered for signed-in users.
  *
- * @returns The root React element for the application's UI (a SafeAreaView with its child components).
+ * @returns The home screen React component with user data and subscription list
  */
 export default function App() {
-
+  const { user } = useUser();
   const [expandedSubscriptionId, setExpandedSubscriptionId] = useState<string | null>();
+
+  // Use authenticated user's first name for greeting, fallback to default
+  const userName = user?.firstName || HOME_USER.name;
 
   return (
     <SafeAreaView className="flex-1 p-5 bg-background">
-
-
       <FlatList
         ListHeaderComponent={() => (
           <>
             <View className="home-header">
               <View className='home-user'>
-                <Image source={require('@/assets/images/avatar.png')} className='home-avatar' />
-                <Text className='home-user-name'>{HOME_USER.name}</Text>
+                {user?.imageUrl ? (
+                  <Image 
+                    source={{ uri: user.imageUrl }} 
+                    className='home-avatar' 
+                    defaultSource={require('@/assets/images/avatar.png')}
+                  />
+                ) : (
+                  <Image source={require('@/assets/images/avatar.png')} className='home-avatar' />
+                )}
+                <Text className='home-user-name'>{userName}</Text>
               </View>
               <Image source={icons.add} className='home-add-icon'></Image>
             </View>
@@ -70,13 +79,9 @@ export default function App() {
         extraData={expandedSubscriptionId}
         ItemSeparatorComponent={() => (<View className='h-4' />)}
         showsVerticalScrollIndicator={false}
-        ListEmptyComponent={<Text className='home-empty-state' >No upcoming renewal yet.</Text>}
-        // ListFooterComponent={() => (<View className='h-24' />)}
+        ListEmptyComponent={<Text className='home-empty-state' >No subscriptions yet.</Text>}
         contentContainerClassName='pb-30'
       />
-
-
     </SafeAreaView>
-    // </View>
   );
 }
